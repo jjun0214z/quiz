@@ -5,8 +5,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predeploy": "npm run build",
+    "deploy": "next export"
   },
+  "homepage": "https://jjun0214z.github.io/quiz",
   "dependencies": {
     "next": "12.0.7",
     "react": "17.0.2",

@@ -3,16 +3,17 @@ import type { NextPage } from 'next';
 import useFetch from '@/hooks/useFetch';
 import API from '@/assets/api/trivia';
 import { useEffect, useState } from 'react';
-import { IQuizItem } from '@/types/trivia';
 import { Buttons } from '@/assets/styles/commons';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import actionTypes from '@/store/actions';
 
 const Home: NextPage = () => {
   const {
     props: { fetch, res },
   } = useFetch(API.QUIZ_LIST);
   const [params, setParams] = useState({ amount: 10 });
-  const [quizList, setQuizList] = useState<IQuizItem | null>(null);
+  const dispatch = useDispatch();
 
   const handleClick = function () {
     fetch(params);
@@ -20,8 +21,16 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (res) {
-      const { results } = res;
-      setQuizList(results);
+      const {
+        status,
+        data: { results },
+      } = res;
+      if (status === 200) {
+        dispatch({
+          type: actionTypes.QUIZ['SET_QUIZ'],
+          payload: { results },
+        });
+      }
     }
   }, [res]);
 

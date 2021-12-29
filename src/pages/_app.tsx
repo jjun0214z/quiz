@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 import DefaultLayout from '@/components/layouts/Default';
 import IntroLayout from '@/components/layouts/Intro';
+import wrapper from '@/store/configureStore';
 
 function MyApp({ Component, pageProps, router: { route } }: AppProps) {
   return (
@@ -24,4 +25,4 @@ function MyApp({ Component, pageProps, router: { route } }: AppProps) {
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);
